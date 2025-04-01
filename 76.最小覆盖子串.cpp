@@ -17,7 +17,9 @@ public:
     unordered_map<char, int> has{};
     unordered_map<char, int> standard{};
     vector<int> orderCharIndexes{};
+
     int tSize = t.size();
+    int less = tSize;
     for (auto c : t) {
       standard[c]++;
     }
@@ -26,6 +28,9 @@ public:
     for (size_t i = 0; i <= s.length(); i++) {
       if (standard[s[i]] > 0) {
         has[s[i]]++;
+        if (has[s[i]] <= standard[s[i]]) {
+          less--;
+        }
         orderCharIndexes.push_back(i);
         while (has[s[orderCharIndexes.front()]] >
                standard[s[orderCharIndexes.front()]]) {
@@ -34,17 +39,8 @@ public:
           orderCharIndexes.erase(orderCharIndexes.begin());
         }
       }
-      if (orderCharIndexes.size() >= tSize) {
-        bool isOk = true;
-        for (const auto &pair : standard) {
-          if (has[pair.first] < pair.second) {
-            isOk = false;
-            break;
-          }
-        }
-        if (!isOk) {
-          continue;
-        }
+      // optimize, dont iterate
+      if (less == 0) {
         if (orderCharIndexes.back() - orderCharIndexes.front() + 1 <
             minLength) {
           minLength = orderCharIndexes.back() - orderCharIndexes.front() + 1;
