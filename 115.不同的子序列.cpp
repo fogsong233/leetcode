@@ -3,7 +3,6 @@
  *
  * [115] 不同的子序列
  */
-#include <cstdio>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -22,6 +21,7 @@ public:
       return cache[s.size()][t.size()];
     }
     int res = 0;
+    int a = s.size();
     if (t.size() == 0) {
       return 1;
     }

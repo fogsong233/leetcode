@@ -48,6 +48,7 @@ public:
     if (prefix.size() == used.size()) {
       return prefix;
     }
+    char a = (char)1;
     return findKthPermOfN(k, n - 1, prefix);
   }
 };
